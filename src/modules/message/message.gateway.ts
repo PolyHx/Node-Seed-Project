@@ -1,6 +1,7 @@
 import { SubscribeMessage, WebSocketGateway, WebSocketServer, WsResponse } from "@nestjs/websockets";
 import * as SocketIO from "socket.io";
-import * as Ws from "ws";
+import * as WebSocket from "ws";
+import { serialize } from "class-transformer";
 
 @WebSocketGateway()
 export class MessageGateway {
@@ -9,12 +10,18 @@ export class MessageGateway {
     @WebSocketServer()
     private server: SocketIO.Server;
 
-    // If using WebSocking instead of Socket.io
+    // If using WebSocket instead of Socket.io
     @WebSocketServer()
-    private WsServer: Ws.Server;
+    private WsServer: WebSocket.Server;
 
     sendHello() {
-        this.server.emit('event', "Hello World!");
+        // If using Socket.Io (Default)
+        this.server.emit("event", "Hello World!");
+
+        // If using WebSocket instead of Socket.io
+        for (let client of this.WsServer.clients) {
+            client.send(JSON.stringify({ type: "event", data: "Hello World!" }));
+        }
     }
 
     @SubscribeMessage('event')

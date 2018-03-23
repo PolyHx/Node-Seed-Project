@@ -4,6 +4,7 @@ import * as express from "express";
 import * as morgan from "morgan";
 import { NestFactory } from "@nestjs/core";
 import { ApplicationModule } from "./modules/app.module";
+import { WsAdapter } from "./adapters/ws.adapter";
 
 async function bootstrap() {
     const app: express.Application = express();
@@ -21,6 +22,10 @@ async function bootstrap() {
         cors: { preflightContinue: true },
         bodyParser: true
     });
+
+    // If using WebSocket instead of Socket.io
+    nestApp.useWebSocketAdapter(new WsAdapter());
+
     await nestApp.listen(Number(process.env.PORT));
 }
 
