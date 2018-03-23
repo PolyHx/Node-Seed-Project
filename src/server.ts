@@ -24,7 +24,7 @@ async function bootstrap() {
     });
 
     // If using WebSocket instead of Socket.io
-    nestApp.useWebSocketAdapter(new WsAdapter());
+    // nestApp.useWebSocketAdapter(new WsAdapter());
 
     await nestApp.listen(Number(process.env.PORT));
 }
