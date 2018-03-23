@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Create keys folder 
+mkdir -p keys && cd keys
+
+# Generate private key
+openssl genrsa 2048 > private.pem
+
+# Generate public key
+openssl req -x509 -new -key private.pem -out public.pem
