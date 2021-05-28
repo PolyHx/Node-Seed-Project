@@ -33,7 +33,7 @@
     "passport-jwt": "^4.0.0",
     "reflect-metadata": "0.1.12",
     "rxjs": "5.5.6",
-    "ws": "^5.1.0"
+    "ws": "^7.4.5"
   },
   "devDependencies": {
     "@types/bcrypt": "^1.0.0",
